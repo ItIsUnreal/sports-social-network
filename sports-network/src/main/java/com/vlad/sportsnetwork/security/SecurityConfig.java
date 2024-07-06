@@ -30,7 +30,7 @@ public class SecurityConfig {
         http
                 .cors(withDefaults())
                 .csrf(AbstractHttpConfigurer::disable)
-                .authorizeHttpRequests( req ->
+                .authorizeHttpRequests(req ->
                         req.requestMatchers(
                                         "/auth/**",
                                         "/v2/api-docs",
@@ -43,14 +43,14 @@ public class SecurityConfig {
                                         "/swagger-ui/**",
                                         "/webjars/**",
                                         "/swagger-ui.html"
-                        ).permitAll()
+                                ).permitAll()
                                 .anyRequest()
                                 .authenticated()
 
                 )
-                .sessionManagement(seesion-> seesion.sessionCreationPolicy(STATELESS))
+                .sessionManagement(seesion -> seesion.sessionCreationPolicy(STATELESS))
                 .authenticationProvider(authenticationProvider)
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
-    }
+        return http.build();    }
 
 }
